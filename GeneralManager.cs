@@ -44,7 +44,7 @@ namespace MyRogueLike
             RoomManager = gameObject.AddComponent<RoomManager>();
             ReducerManager = gameObject.AddComponent<ReducerManager>();
             Mover = gameObject.AddComponent<Mover>();
-            Debug.Log(Terrains.TerrainList[0].Id);
+            Debug.Log(Terrains.TerrainArr.Length);
         }
 
 

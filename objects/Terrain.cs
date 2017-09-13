@@ -2,6 +2,7 @@
 
 namespace MyRogueLike
 {
+    [System.Serializable]
     public class Terrain
     {
         public bool Passable { get; set; }
