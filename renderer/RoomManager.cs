@@ -27,7 +27,7 @@ namespace MyRogueLike
 
         void instantiateObjects()
         {
-            foreach (var unit in room.ObjectsInRoom)
+            foreach (var unit in room.UnitsInRoom)
             {
                 UnitCreator.CreateUnit(new GameObject(), unit);
             }

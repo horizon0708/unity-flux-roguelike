@@ -22,6 +22,7 @@ namespace MyRogueLike
         public Level CurrentLevel;
         public Room CurrentRoom;
         public Unit Player;
+        public Terrains Terrains;
 
         void Awake()
         {
@@ -32,6 +33,7 @@ namespace MyRogueLike
             room.addObject("test", Vector2.right);
             CurrentLevel = GlobalStore.GetCurrentLevel();
             CurrentRoom = CurrentLevel.getCurrentRoom();
+            Terrains = new Terrains();
         }
 
         void Start()
@@ -42,6 +44,7 @@ namespace MyRogueLike
             RoomManager = gameObject.AddComponent<RoomManager>();
             ReducerManager = gameObject.AddComponent<ReducerManager>();
             Mover = gameObject.AddComponent<Mover>();
+            Debug.Log(Terrains.TerrainList[0].Id);
         }
 
 
