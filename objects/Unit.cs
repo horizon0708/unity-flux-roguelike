@@ -3,27 +3,31 @@ using UnityEngine;
 
 namespace MyRogueLike
 {
-    public class Unit
+    public class Unit: IMovable
     {
-        public string Id;
-        public Vector2 Position;
+        public string Id { get; set; }
+        public string Slug { get; set; }
+        public Vector2 Position { get; set; }
         public float Radius;
-        private float speed;
+        public float Speed { get; set; }
         public List<string> Debuffs;
         public List<string> Buffs;
-        public bool CanCollide = true;
+        public bool CanCollide { get; set; }
+        public float Height { get; set; }
+        public float Width { get; set; }
 
         public Unit(string id, Vector2 position)
         {
             Id = id;
             Position = position;
             Radius = 0.02f;
+            Height = 1;
+            Width = 1;
         }
 
-        public float Height = 1;
-        public float Width = 1;
+        
 
-        public float getSpeed()
+        public float GetSpeed()
         {
             // TODO: change speed depending on buffs, debuffs
             return 0.12f;

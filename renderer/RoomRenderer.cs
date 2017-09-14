@@ -2,7 +2,7 @@
 
 namespace MyRogueLike
 {
-    public class RoomManager: MonoBehaviour
+    public class RoomRenderer : IInitialRenderer
     {   
         // this guy should handle all info for movement handling etc.
         private Room room;
@@ -10,9 +10,9 @@ namespace MyRogueLike
         private GeneralManager generalManager;
         private GlobalStore globalStore;
 
-        void Start()
+        public RoomRenderer(GeneralManager gm)
         {
-            generalManager = gameObject.GetComponent<GeneralManager>();
+            generalManager = gm; // inject reference to gm on construction.
             globalStore = generalManager.GlobalStore;
             level = globalStore.GetCurrentLevel();
             room = level.getCurrentRoom();
@@ -27,10 +27,15 @@ namespace MyRogueLike
 
         void instantiateObjects()
         {
-            foreach (var unit in room.UnitsInRoom)
+            foreach (var unit in room.MovableObjects)
             {
-                UnitCreator.CreateUnit(new GameObject(), unit);
+                UnitCreator.CreateUnit(new GameObject(), unit as Unit);
             }
+        }
+
+        public void GameRender()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -6,26 +7,31 @@ namespace MyRogueLike
 {
     public class Room
     {
-        public List<Unit> UnitsInRoom = new List<Unit>();
+        public List<IMovable> MovableObjects = new List<IMovable>();
         public int Id;
 
-        public Room(int id, List<Unit> units)
+        public Room(int id, List<IMovable> units)
         {
             Id = id;
-            UnitsInRoom = units;
+            MovableObjects = units;
         }
 
-
-        public Unit addObject(string id, Vector2 startingPos)
+        // surely could abstract this away with AddMovableObject<T> somehow?
+        public Unit AddUnit(string id, Vector2 startingPos)
         {
             var newObj = new Unit(id, startingPos);
-            UnitsInRoom.Add(newObj);
+            MovableObjects.Add(newObj);
             return newObj;
         }
 
-        public Unit getObject(string id)
+        public IMovable GetMovableObject(string id)
         {
-            return UnitsInRoom.Find(x => x.Id == id);
+            return MovableObjects.Find(x => x.Id == id);
+        }
+
+        public List<IMovable> GetMovablesExcept(string id)
+        {
+            return MovableObjects.Where(x => x.Id != id).ToList();
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace MyRogueLike.reducers
+namespace MyRogueLike
 {
     public class GameplayReducer
     {
@@ -15,7 +15,7 @@ namespace MyRogueLike.reducers
                     dynamic payload = action.Payload;
                     var instigator = payload.instigator;
                     var direction = payload.direction;
-                    instigator.Position = MoveEvaluator.CheckCollisionThenMove(instigator, direction);
+                    instigator.Position = MoveController.CheckCollisionThenMove(instigator, direction);
                     break;
                 }
 

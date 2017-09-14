@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace MyRogueLike
 {
+    // probably could add interface for stores
     public class GlobalStore
     {
         public List<Level> Levels;
@@ -10,6 +11,13 @@ namespace MyRogueLike
         public static int CurrentRoomId = 0;
         public Level CurrentLevel;
         public Room CurrentRoom;
+        public enum SystemState
+        {
+            Playing,
+            Paused,
+        }
+
+        public SystemState SysState;
 
         public GlobalStore()
         {

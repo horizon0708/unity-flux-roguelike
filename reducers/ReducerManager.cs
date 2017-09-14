@@ -2,7 +2,7 @@
 
 namespace MyRogueLike.reducers
 {
-    public class ReducerManager: MonoBehaviour
+    public class ReducerManager
     {
         // gets action object {type: string, payload: Object, date: DateTime.Now }
         
@@ -10,16 +10,21 @@ namespace MyRogueLike.reducers
 
         // sends them to Logger, to be recorded.
 
-        public GameplayReducer GameplayReducer;
+        private GameplayReducer _gameplayReducer;
+        private GeneralManager _gm;
 
-        void Start()
+        public ReducerManager(GeneralManager gm)
         {
-            GameplayReducer = new GameplayReducer();
+            _gm = gm;
+            _gameplayReducer = new GameplayReducer();
         }
 
         public void Dispatch(Action action)
         {
-            GameplayReducer.Evaluate(action);
+            if (_gm.GlobalStore.SysState == GlobalStore.SystemState.Playing)
+            {
+                _gameplayReducer.Evaluate(action);
+            }
         }
     }
 }

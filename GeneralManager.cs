@@ -2,23 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using MyRogueLike.reducers;
+using MyRogueLike.rules;
 using UnityEngine;
 
 namespace MyRogueLike
 {
     public class GeneralManager : MonoBehaviour
     {
-        public ActionManager ActionManager;
         public InputManager InputManager;
         public StoreManager StoreManager;
-        public RoomManager RoomManager;
         public ReducerManager ReducerManager;
-        public Mover Mover;
-        public GlobalStore GlobalStore;
+        public RenderManager RenderManager;
+        public RuleManager RuleManager;
+
+        public List<IUpdater> Updaters;
 
         // Use this for initialization
 
-        // Saving References ... do i need to?
+        // Saving References for easy access ... do i need to?
+        public GlobalStore GlobalStore;
         public Level CurrentLevel;
         public Room CurrentRoom;
         public Unit Player;
@@ -26,33 +28,41 @@ namespace MyRogueLike
 
         void Awake()
         {
-            GlobalStore = new GlobalStore();
-            Level level = GlobalStore.AddToLevelList(new Level(1, new List<Room>()));
-            Room room = level.addRoom();
-            room.addObject("player", Vector2.left);
-            room.addObject("test", Vector2.right);
-            CurrentLevel = GlobalStore.GetCurrentLevel();
+            Updaters = new List<IUpdater>();
+            //I think this could be abstracted away later
+            RenderManager = AddUpdater(new RenderManager(this)) as RenderManager;
+            RenderManager.AddUpdateRenderer(new Mover(this));
+            RenderManager.AddInitialRenderer(new RoomRenderer(this));
+
+            RuleManager = AddUpdater(new RuleManager(this)) as RuleManager;
+            InputManager = AddUpdater(new InputManager(this)) as InputManager;          
+
+            StoreManager = new StoreManager();
+            ReducerManager = new ReducerManager(this);
+            GlobalStore = StoreManager.GlobalStore;
+            CurrentLevel = StoreManager.CurrentLevel;
             CurrentRoom = CurrentLevel.getCurrentRoom();
-            Terrains = new Terrains();
+            Terrains = StoreManager.Terrains;
+        }
+
+        IUpdater AddUpdater(IUpdater updater)
+        {
+            Updaters.Add(updater);
+            return updater;
         }
 
         void Start()
         {
-            ActionManager = gameObject.AddComponent<ActionManager>();
-            InputManager = gameObject.AddComponent<InputManager>();
-            StoreManager = gameObject.AddComponent<StoreManager>();
-            RoomManager = gameObject.AddComponent<RoomManager>();
-            ReducerManager = gameObject.AddComponent<ReducerManager>();
-            Mover = gameObject.AddComponent<Mover>();
-            Debug.Log(Terrains.TerrainArr.Length);
+            //handle inital render
+            RenderManager.InitialRender();
         }
 
-
-        // Update is called once per frame
         void Update()
         {
-            InputManager.CheckInputs();
-            Mover.MoveStuff();
+            foreach (var updater in Updaters)
+            {
+                updater.ManageUpdate();
+            }
         }
     }
 
