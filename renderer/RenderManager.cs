@@ -11,6 +11,7 @@ namespace MyRogueLike
         public RenderManager(GeneralManager gm)
         {
             UpdateRenderers = new List<IUpdateRenderer>();
+            InitialRenderers = new List<IInitialRenderer>();
         }
 
         public void AddUpdateRenderer(IUpdateRenderer renderer)

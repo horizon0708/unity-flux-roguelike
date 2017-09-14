@@ -35,7 +35,7 @@ namespace MyRogueLike
 
         public void GameRender()
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
     }
 }

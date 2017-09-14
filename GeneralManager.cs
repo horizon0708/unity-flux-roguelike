@@ -23,11 +23,18 @@ namespace MyRogueLike
         public GlobalStore GlobalStore;
         public Level CurrentLevel;
         public Room CurrentRoom;
-        public Unit Player;
         public Terrains Terrains;
 
         void Awake()
         {
+            StoreManager = new StoreManager();
+            ReducerManager = new ReducerManager(this);
+            GlobalStore = StoreManager.GlobalStore;
+            CurrentLevel = StoreManager.CurrentLevel;
+            CurrentRoom = CurrentLevel.getCurrentRoom();
+            Terrains = StoreManager.Terrains;
+
+
             Updaters = new List<IUpdater>();
             //I think this could be abstracted away later
             RenderManager = AddUpdater(new RenderManager(this)) as RenderManager;
@@ -37,12 +44,7 @@ namespace MyRogueLike
             RuleManager = AddUpdater(new RuleManager(this)) as RuleManager;
             InputManager = AddUpdater(new InputManager(this)) as InputManager;          
 
-            StoreManager = new StoreManager();
-            ReducerManager = new ReducerManager(this);
-            GlobalStore = StoreManager.GlobalStore;
-            CurrentLevel = StoreManager.CurrentLevel;
-            CurrentRoom = CurrentLevel.getCurrentRoom();
-            Terrains = StoreManager.Terrains;
+            
         }
 
         IUpdater AddUpdater(IUpdater updater)

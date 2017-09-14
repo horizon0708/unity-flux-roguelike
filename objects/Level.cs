@@ -13,10 +13,10 @@ namespace MyRogueLike
             Id = id;
             Rooms = rooms;
         }
-
+        
         public Room addRoom()
         {
-            var room = new Room(Rooms.Count, new List<Unit>());
+            var room = new Room(Rooms.Count, new List<IMovable>());
             Rooms.Add(room);
             return room;
         }

@@ -17,9 +17,15 @@ namespace MyRogueLike
         public InputManager(GeneralManager gm)
         {
             _gm = gm;
+        }
+
+        private void Start()
+        {
             globalStore = _gm.GlobalStore;
+
             currentLevel = globalStore.GetCurrentLevel();
             currentRoom = currentLevel.getRoomById(GlobalStore.CurrentRoomId);
+
             player = currentRoom.GetMovableObject("player");
         }
 
@@ -36,7 +42,7 @@ namespace MyRogueLike
             {
                 var parameters = new
                 {
-                    direction = Vector2.up
+                    direction :Vector2.up
                 };
                 var payload = new Payload(player, parameters);
                 var action = new Action("MOVE", payload);
@@ -45,33 +51,33 @@ namespace MyRogueLike
             }
             if (Input.GetAxisRaw("Vertical") < 0)
             {
-                var parameters = new
+                var payload = new
                 {
+                    instigator = player,
                     direction = Vector2.down
                 };
-                var payload = new Payload(player, parameters);
                 var action = new Action("MOVE", payload);
                 _gm.ReducerManager.Dispatch(action);
 
             }
             if (Input.GetAxisRaw("Horizontal") < 0)
             {
-                var parameters = new
+                var payload = new
                 {
+                    instigator = player,
                     direction = Vector2.left
                 };
-                var payload = new Payload(player, parameters);
                 var action = new Action("MOVE", payload);
                 _gm.ReducerManager.Dispatch(action);
 
             }
             if (Input.GetAxisRaw("Horizontal") > 0)
             {
-                var parameters = new
+                var payload = new
                 {
+                    instigator = player,
                     direction = Vector2.right
                 };
-                var payload = new Payload(player, parameters);
                 var action = new Action("MOVE", payload);
                 _gm.ReducerManager.Dispatch(action);
 

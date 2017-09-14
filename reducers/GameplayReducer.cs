@@ -9,13 +9,14 @@ namespace MyRogueLike
         public void Evaluate(Action action)
         {
             switch (action.Type)
-            {
+            { 
                 case "MOVE":
                 {
-                    dynamic payload = action.Payload;
-                    var instigator = payload.instigator;
-                    var direction = payload.direction;
-                    instigator.Position = MoveController.CheckCollisionThenMove(instigator, direction);
+                    var payload = action.Payload;
+                    var target = payload.Target;
+                    dynamic paras = payload.Parameters;
+                    var direction = paras.direction;
+                    if (target != null) target.Position = MoveController.CheckCollisionThenMove(target, direction);
                     break;
                 }
 
