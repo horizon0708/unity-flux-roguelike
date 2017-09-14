@@ -15,5 +15,11 @@ namespace MyRogueLike
             Payload = payload;
             Time = DateTime.Now;
         }
+
+        public Action(string type)
+        {
+            Type = type;
+            Time = DateTime.Now;
+        }
     }
 }

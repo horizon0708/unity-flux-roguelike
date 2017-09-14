@@ -74,7 +74,16 @@ namespace MyRogueLike
                 var payload = new Payload(player, parameters);
                 var action = new Action("MOVE", payload);
                 _gm.ReducerManager.Dispatch(action);
-
+            }
+            if (Input.GetButtonDown("Jump"))
+            {
+                var parameters = new
+                {
+                    direction = Vector2.right
+                };
+                var payload = new Payload(player, parameters);
+                var action = new Action("JUMP", payload);
+                _gm.ReducerManager.Dispatch(action);
             }
         }
     }

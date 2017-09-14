@@ -5,12 +5,25 @@ namespace MyRogueLike
 {
     public static class MoveController
     {
-        // This could be Interface !!! 
         public static Vector2 Move(IMovable unit, Vector2 direction)
         {
             var currPos = unit.Position;
             var speed = unit.GetSpeed();
+            return new Vector2(currPos.x + speed * direction.x * Time.deltaTime
+                , currPos.y + speed * direction.y * Time.deltaTime);
+        }
+
+        public static Vector2 Move(IMovable unit, Vector2 direction , float speed)
+        {
+            var currPos = unit.Position;
             return new Vector2(currPos.x + speed * direction.x, currPos.y + speed * direction.y);
+        }
+
+        public static Vector2 Fall(IMovable unit)
+        {
+            var currPos = unit.Position;
+            var speed = unit.GetYSpeed();
+            return new Vector2(currPos.x, currPos.y + speed * Time.deltaTime);
         }
 
         public static Vector2 CheckCollisionThenMove(IMovable unit, Vector2 direction)
@@ -35,6 +48,28 @@ namespace MyRogueLike
             return Move(unit, direction);
         }
 
+        public static Vector2 CheckCollisionThenMove(IMovable unit, Vector2 direction, float speed)
+        {
+            if (direction.x > 0 && IsCollidingRight(unit))
+            {
+                return Move(unit, new Vector2(0, direction.y));
+            }
+            if (direction.x < 0 && IsCollidingLeft(unit))
+            {
+                return Move(unit, new Vector2(0, direction.y));
+            }
+            if (direction.y > 0 && IsCollidingTop(unit))
+            {
+                return Move(unit, new Vector2(direction.x, 0));
+            }
+            if (direction.y < 0 && IsCollidingBottom(unit))
+            {
+                return Move(unit, new Vector2(direction.x, 0));
+            }
+
+            return Move(unit, direction, speed);
+        }
+
         // might want to abstract out collission
 
         private static bool castRay(IMovable unit, Vector2 direction)
@@ -43,7 +78,7 @@ namespace MyRogueLike
             var width = unit.Width;
             var position = unit.Position;
             // Need buffer to make sure that the unit does not get stuck inside another collider2d.
-            var buffer = unit.GetSpeed();
+            var buffer = 0.05f+ 0.01f * unit.GetSpeed();
             var rayDistanceX = direction.x * (width / 2 + buffer);
             var rayDistanceY = direction.y * (height / 2 + buffer);
             var rayDistance = Mathf.Abs(rayDistanceY + rayDistanceX);
@@ -98,6 +133,15 @@ namespace MyRogueLike
         public static bool IsCollidingBottom(IMovable unit)
         {
             return castRay(unit, Vector2.down);
+        }
+
+        public static Vector2 CheckCollisionThenFall(IMovable target)
+        {
+            if (IsCollidingBottom(target))
+            {
+                return new Vector2(target.Position.x, target.Position.y);
+            }
+            return Fall(target);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace MyRogueLike.rules
+﻿namespace MyRogueLike
 {
     public interface IRule
     {

@@ -17,6 +17,8 @@ namespace MyRogueLike
             Paused,
         }
 
+        public GlobalParameters GlobalParameters;
+
         public SystemState SysState;
 
         public GlobalStore()
@@ -24,6 +26,8 @@ namespace MyRogueLike
             Levels = new List<Level>();
             CurrentRoomId = 1;
             CurrentRoomId = 0;
+            GlobalParameters = new GlobalParameters(); 
+
         }
 
         public Level AddToLevelList(Level level)

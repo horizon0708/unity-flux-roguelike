@@ -13,6 +13,10 @@ namespace MyRogueLike
             Target = target;
             Parameters = parameters;
         }
+        public Payload(IMovable target)
+        {
+            Target = target;
+        }
 
     }
 }

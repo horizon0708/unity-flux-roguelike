@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.scripts.rules;
 using MyRogueLike.reducers;
 using MyRogueLike.rules;
+using MyRogueLike.utilities;
 using UnityEngine;
 
 namespace MyRogueLike
@@ -42,6 +44,9 @@ namespace MyRogueLike
             RenderManager.AddInitialRenderer(new RoomRenderer(this));
 
             RuleManager = AddUpdater(new RuleManager(this)) as RuleManager;
+            //RuleManager.AddRule(new ResetSpeed());
+            RuleManager.AddRule(new Gravity());
+
             InputManager = AddUpdater(new InputManager(this)) as InputManager;          
 
             
@@ -57,6 +62,9 @@ namespace MyRogueLike
         {
             //handle inital render
             RenderManager.InitialRender();
+
+            //start inspector for debugging
+            gameObject.AddComponent<DebugInspector>();
         }
 
         void Update()
@@ -64,6 +72,26 @@ namespace MyRogueLike
             foreach (var updater in Updaters)
             {
                 updater.ManageUpdate();
+            }
+        }
+
+        private static GeneralManager _instance;
+        public static GeneralManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = GameObject.FindObjectOfType<GeneralManager>();
+
+                    if (_instance == null)
+                    {
+                        GameObject container = new GameObject("manager");
+                        _instance = container.AddComponent<GeneralManager>();
+                    }
+                }
+
+                return _instance;
             }
         }
     }

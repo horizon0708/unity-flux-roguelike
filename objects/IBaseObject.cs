@@ -9,5 +9,8 @@ namespace MyRogueLike
         float Height { get; set; }
         float Width { get; set; }
         Vector2 Position { get; set; }
+        Vector2 PreviousPosition { get; set; }
+
+        void ChangePosition(Vector2 newPos);
     }
 }
