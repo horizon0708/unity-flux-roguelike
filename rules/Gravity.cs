@@ -13,7 +13,7 @@ namespace MyRogueLike
 
             foreach (var movable in movables)
             {
-                GeneralManager.Instance.ReducerManager.Dispatch( new Action("FALL", new Payload(movable)));
+                _gm.ReducerManager.Dispatch( new Action("FALL", new Payload(movable)));
             }
 
             foreach (var movable in movables)

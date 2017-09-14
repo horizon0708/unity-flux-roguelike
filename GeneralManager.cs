@@ -62,7 +62,8 @@ namespace MyRogueLike
         {
             //handle inital render
             RenderManager.InitialRender();
-
+            var pipe = new PipeGenerator();
+         
             //start inspector for debugging
             gameObject.AddComponent<DebugInspector>();
         }
