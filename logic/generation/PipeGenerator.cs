@@ -6,25 +6,28 @@ namespace MyRogueLike
     public class PipeGenerator
     {
         public int Difficulty;
+        public float Interval;
+        public float Speed;
 
         private Timer _timer;
 
-        public PipeGenerator()
+        public PipeGenerator(float interval)
         {
-            setTimer(2);
+            Interval = interval;
+            setTimer(Interval);
         }
 
         public void setTimer(double time)
         {
             _timer = new Timer(time);
             _timer.Elapsed += new ElapsedEventHandler(CreatePipes);
-            _timer.Interval = 5000;
+            _timer.Interval = Interval;
             _timer.Enabled = true;
         }
 
         private static void CreatePipes(object source, ElapsedEventArgs e)
         {
-            Debug.Log("hello");          
+            Debug.Log("pipe");          
         }
     }
 }

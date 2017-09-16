@@ -16,8 +16,12 @@ namespace MyRogueLike
         public ReducerManager ReducerManager;
         public RenderManager RenderManager;
         public RuleManager RuleManager;
+        public AssetLoader AssetLoader;
 
         public List<IUpdater> Updaters;
+        public Obstacles Obstacles;
+        public Terrains Terrains;
+        public Units Units;
 
         // Use this for initialization
 
@@ -25,16 +29,20 @@ namespace MyRogueLike
         public GlobalStore GlobalStore;
         public Level CurrentLevel;
         public Room CurrentRoom;
-        public Terrains Terrains;
 
         void Awake()
         {
+            // load asssets;
+            AssetLoader = new AssetLoader();
+            Obstacles = AssetLoader.Obstacles;
+            Terrains = AssetLoader.Terrains;
+            Units = AssetLoader.Units;
+
             StoreManager = new StoreManager();
             ReducerManager = new ReducerManager(this);
             GlobalStore = StoreManager.GlobalStore;
             CurrentLevel = StoreManager.CurrentLevel;
             CurrentRoom = CurrentLevel.getCurrentRoom();
-            Terrains = StoreManager.Terrains;
 
 
             Updaters = new List<IUpdater>();
@@ -52,6 +60,11 @@ namespace MyRogueLike
             
         }
 
+        public void AddToCurrentRoom()
+        {
+            
+        }
+
         IUpdater AddUpdater(IUpdater updater)
         {
             Updaters.Add(updater);
@@ -62,7 +75,7 @@ namespace MyRogueLike
         {
             //handle inital render
             RenderManager.InitialRender();
-            var pipe = new PipeGenerator();
+            var pipe = new PipeGenerator(2000f);
          
             //start inspector for debugging
             gameObject.AddComponent<DebugInspector>();

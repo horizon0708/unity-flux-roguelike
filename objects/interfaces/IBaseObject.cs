@@ -5,6 +5,7 @@ namespace MyRogueLike
     public interface IBaseObject
     {
         string Id { get; set; }
+        string InGameId { get; set; }
         string Slug { get; set; }
         float Height { get; set; }
         float Width { get; set; }
@@ -12,5 +13,6 @@ namespace MyRogueLike
         Vector2 PreviousPosition { get; set; }
 
         void ChangePosition(Vector2 newPos);
+
     }
 }

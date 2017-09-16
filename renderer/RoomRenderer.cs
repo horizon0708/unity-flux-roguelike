@@ -27,9 +27,13 @@ namespace MyRogueLike
 
         void instantiateObjects()
         {
-            foreach (var unit in room.MovableObjects)
+            //foreach (Unit unit in room.MovableObjects)
+            //{
+            //    UnitCreator.CreateUnit(new GameObject(), unit as Unit);
+            //}
+            foreach (IMovable obs in room.MovableObjects)
             {
-                UnitCreator.CreateUnit(new GameObject(), unit as Unit);
+                MovableCreator.CreateMovable(new GameObject(), obs);
             }
         }
 

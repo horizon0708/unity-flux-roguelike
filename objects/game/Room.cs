@@ -24,6 +24,13 @@ namespace MyRogueLike
             return newObj;
         }
 
+        public IMovable AddMovable(IMovable movable, Vector2 startingPos)
+        {
+            MovableObjects.Add(movable);
+            return movable;
+        }
+        
+
         public IMovable GetMovableObject(string id)
         {
             return MovableObjects.Find(x => x.Id == id);

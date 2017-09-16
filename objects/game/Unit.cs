@@ -3,13 +3,14 @@ using UnityEngine;
 
 namespace MyRogueLike
 {
+    [System.Serializable]
     public class Unit: IMovable
     {
         public string Id { get; set; }
+        public string InGameId { get; set; }
         public string Slug { get; set; }
         public Vector2 Position { get; set; }
         public Vector2 PreviousPosition { get; set; }
-        public float Radius;
  
         public bool IsMoving { get; set; }
         public bool IsFalling { get; set; }
@@ -31,16 +32,30 @@ namespace MyRogueLike
 
         public Unit(string id, Vector2 position)
         {
-            Id = id;
+            InGameId = id;
             Position = position;
-            Radius = 0.01f;
-            Height = 1;
-            Width = 1;
-            Speed = 1f;
-            MaxSpeed = 10f;
-            IsMoving = false;
-            IsJumping = false;
         }
+
+        public Unit(string id)
+        {
+            var _gm = GeneralManager.Instance;
+            var original = _gm.Units.FindWithId(id);
+            InGameId = original.Id == "player" ? original.Id : IdGenerator.GenerateId();
+            Slug = original.Slug;
+            IsMoving = false;
+            IsFalling = false;
+            IsJumping = false;
+            Speed = 0;
+            XSpeed = original.XSpeed;
+            YSpeed = original.YSpeed;
+            Acceleration = original.Acceleration;
+            XAcceleration = original.XAcceleration;
+            YAcceleration = original.YAcceleration;
+            MaxSpeed = original.MaxSpeed;
+            Height = original.Height;
+            Width = original.Width;
+        }
+
 
         public void ChangePosition(Vector2 newPos)
         {
@@ -58,17 +73,13 @@ namespace MyRogueLike
         public float GetXSpeed()
         {
             if (XSpeed < MaxSpeed) XSpeed += Acceleration;
-            return Speed;
+            return XSpeed;
         }
 
         public float GetYSpeed()
         {
             var glob = GeneralManager.Instance.GlobalStore.GlobalParameters;
-            if (IsJumping)
-            {
-                YSpeed = 5f;
-            }
-            else if (YSpeed > glob.TerminalVelocity) YSpeed -= glob.Gravity;
+            if (YSpeed > glob.TerminalVelocity) YSpeed -= glob.Gravity;
             
             return YSpeed;
         }

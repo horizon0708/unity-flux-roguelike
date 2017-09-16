@@ -17,7 +17,7 @@ namespace MyRogueLike
                 map.Add(new List<object>(width));
                 for (int j = 0; j < width; j++)
                 {
-                    map[i][j] = new Terrain();
+                    map[i][j] = new Terrain("t_dirt");
                 }
             }
         }
