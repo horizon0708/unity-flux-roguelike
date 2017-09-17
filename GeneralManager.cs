@@ -24,6 +24,8 @@ namespace MyRogueLike
         public Terrains Terrains;
         public Units Units;
 
+        public CameraManager CameraManager { get; private set; }
+
         // Use this for initialization
 
         // Saving References for easy access ... do i need to?
@@ -39,6 +41,7 @@ namespace MyRogueLike
             Terrains = AssetLoader.Terrains;
             Units = AssetLoader.Units;
 
+            CameraManager = new CameraManager();
             StoreManager = new StoreManager();
             ReducerManager = new ReducerManager(this);
             GlobalStore = StoreManager.GlobalStore;
@@ -58,7 +61,7 @@ namespace MyRogueLike
             RuleManager.AddRule(new GoLifecycle());  // this rule must come before any position altering rules like 
 
             //RuleManager.AddRule(new ResetSpeed());
-            RuleManager.AddRule(new PipeMovement());
+            RuleManager.AddRule(new BenFlipperRule());
             RuleManager.AddRule(new Gravity());
 
             InputManager = AddUpdater(new InputManager(this)) as InputManager;          

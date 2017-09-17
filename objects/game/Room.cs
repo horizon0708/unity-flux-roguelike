@@ -33,6 +33,14 @@ namespace MyRogueLike
             
             return movable;
         }
+
+        public void RemoveMovable(string ingameid)
+        {
+            var mov = GetMovableObject(ingameid);
+            
+            MovableObjects.Remove(mov);
+            AllObjects.Remove(mov);
+        }
         
 
         public IMovable GetMovableObject(string id)

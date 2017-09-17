@@ -15,6 +15,7 @@ namespace MyRogueLike
             if (go != null)
             {
                 Destroy(go);
+                GeneralManager.Instance.CurrentRoom.RemoveMovable(target.InGameId);
             }
             else
             {
