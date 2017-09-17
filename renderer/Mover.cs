@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MyRogueLike
 {
-    public class Mover: IUpdateRenderer
+    public class Mover : IUpdateRenderer
     {
         private List<IMovable> _movables;
 
@@ -20,9 +20,12 @@ namespace MyRogueLike
         {
             foreach (var obj in _movables)
             {
-                var id = obj.Id;
+                var id = obj.InGameId;
                 var go = GameObject.Find(id);
-                go.transform.position = obj.Position;
+                if (go != null)
+                {
+                    go.transform.position = obj.GetPosition();
+                }
             }
         }
     }

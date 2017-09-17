@@ -5,24 +5,30 @@ namespace MyRogueLike
     [System.Serializable]
     public class Obstacle: IMovable
     {
-        public string Id { get; set; }
+        public string Id ;
         public string InGameId { get; set; }
-        public string Slug { get; set; }
+        public string Slug ;
         public Vector2 Position { get; set; }
         public Vector2 PreviousPosition { get; set; }
-        public float Speed { get; set; }
-        public float XSpeed { get; set; }
+        public float Speed ;
+        public float XSpeed ;
         public float YSpeed { get; set; }
-        public float MaxSpeed { get; set; }
-        public float Acceleration { get; set; }
-        public float XAcceleration { get; set; }
-        public float YAcceleration { get; set; }
-        public float Height { get; set; }
-        public float Width { get; set; }
-        public bool CanCollide { get; set; }
+        public float MaxSpeed ;
+        public float Acceleration ;
+        public float XAcceleration ;
+        public float YAcceleration ;
+        public float Height ;
+        public float Width ;
+        public bool CanCollide ;
+
         public float GetYSpeed()
         {
-            throw new System.NotImplementedException();
+            return 0;
+        }
+
+        public void SetYSpeed(float speed)
+        {
+            YSpeed = speed;
         }
 
         public bool IsMoving { get; set; }
@@ -41,12 +47,18 @@ namespace MyRogueLike
             Speed = 0;
             XSpeed = original.XSpeed;
             YSpeed = original.YSpeed;
+
+            Position = new Vector2(-999, 0);
+            PreviousPosition = new Vector2(-999, 0);
+
             Acceleration = original.Acceleration;
             XAcceleration = original.XAcceleration;
             YAcceleration = original.YAcceleration;
             MaxSpeed = original.MaxSpeed;
             Height = original.Height;
             Width = original.Width;
+
+
         }
 
         public float GetSpeed()
@@ -62,6 +74,7 @@ namespace MyRogueLike
 
         public float GetXSpeed()
         {
+            if (XSpeed < MaxSpeed) XSpeed += Acceleration;
             return XSpeed;
         }
 
@@ -69,6 +82,31 @@ namespace MyRogueLike
         {
             PreviousPosition = Position;
             Position = newPos;
+        }
+
+        public string GetSlug()
+        {
+            return Slug;
+        }
+
+        public string GetId()
+        {
+            return InGameId;
+        }
+
+        public float GetHeight()
+        {
+            return Height;
+        }
+
+        public float GetWidth()
+        {
+            return Width;
+        }
+
+        public Vector2 GetPosition()
+        {
+            return Position;
         }
 
         public Obstacle(string id, Vector2 pos)

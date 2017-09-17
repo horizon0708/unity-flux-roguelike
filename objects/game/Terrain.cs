@@ -5,12 +5,12 @@ namespace MyRogueLike
     [System.Serializable]
     public class Terrain : IBaseObject
     {
-        public bool Passable { get; set; }
-        public string Id { get; set; }
+        public bool Passable;
+        public string Id;
         public string InGameId { get; set; }
-        public string Slug { get; set; }
-        public float Height { get; set; }
-        public float Width { get; set; }
+        public string Slug ;
+        public float Height ;
+        public float Width ;
         public Vector2 Position { get; set; }
         public Vector2 PreviousPosition { get; set; }
 
@@ -28,6 +28,36 @@ namespace MyRogueLike
         {
             Position = position;
             PreviousPosition = position;
+        }
+
+        public string GetId()
+        {
+            return Id;
+        }
+
+        public string GetIngameId()
+        {
+            return InGameId;
+        }
+
+        public float GetHeight()
+        {
+            return Height;
+        }
+
+        public float GetWidth()
+        {
+            return Width;
+        }
+
+        public string GetSlug()
+        {
+            return Slug;
+        }
+
+        public Vector2 GetPosition()
+        {
+            return Position;
         }
     }
 }

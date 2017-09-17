@@ -17,6 +17,7 @@
             Obstacles = new Obstacles();
             Units = new Units();
             Terrains = new Terrains();
+            var Test = new Tests();
         }
     }
 }

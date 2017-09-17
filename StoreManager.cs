@@ -21,10 +21,8 @@ namespace MyRogueLike
             Room room = level.addRoom();
             CurrentLevel = GlobalStore.GetCurrentLevel();
             CurrentRoom = CurrentLevel.getCurrentRoom();
-            //room.AddUnit("player", Vector2.left);
-            //room.AddUnit("test", Vector2.right);
             room.AddMovable(new Unit("player"), Vector2.left);
-            room.AddMovable(new Obstacle("pipe"), Vector2.right);
+            //room.AddUnit("test", Vector2.right);
             
             //var testObs = new Obstacle("1", Vector2.zero);
             //room.AddMovable(testObs, Vector2.zero);

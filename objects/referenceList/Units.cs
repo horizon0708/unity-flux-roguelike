@@ -9,7 +9,7 @@ namespace MyRogueLike
     public class Units
     {
         //private List<Unit> _arr;
-        private Unit[] _arr;
+        private List<Unit> _arr;
         public Units()
         {
             var gameDataFileName = "units.json";
@@ -18,11 +18,7 @@ namespace MyRogueLike
             {
                 string dataAsJson = File.ReadAllText(filePath);
                 Debug.Log(dataAsJson);
-                _arr = JsonHelper.FromJson<Unit>(dataAsJson);
-                Debug.Log(_arr[0].Id);
-                Debug.Log(_arr[0].MaxSpeed);
-                Debug.Log(_arr[0].Height);
-                Debug.Log(_arr[0].Width);
+                _arr = JsonHelper.FromJson<Unit>(dataAsJson).ToList();
             }
             else
             {
@@ -35,8 +31,8 @@ namespace MyRogueLike
 
         public Unit FindWithId(string id)
         {
-            return new Unit("player", Vector2.down);
-            //return _arr.Find(x => x.Id == id);
+            //return new Unit("player", Vector2.down);
+            return _arr.Find(x => x.Id == id);
         }
     }
 }

@@ -18,6 +18,34 @@ namespace MyRogueLike
             Position = newPos;
         }
 
+        public string GetId()
+        {
+            throw new System.NotImplementedException();
+        }
 
+        public string GetIngameId()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public float GetHeight()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public float GetWidth()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public string GetSlug()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Vector2 GetPosition()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

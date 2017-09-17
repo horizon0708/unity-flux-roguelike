@@ -15,7 +15,7 @@ namespace Assets.scripts.rules
             {
                 if (movable.IsMoving == false)
                 {
-                    movable.Speed = 0.01f;
+                    //movable.Speed = 0.01f;
                 }
             }
 

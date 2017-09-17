@@ -4,15 +4,17 @@ namespace MyRogueLike
 {
     public interface IBaseObject
     {
-        string Id { get; set; }
-        string InGameId { get; set; }
-        string Slug { get; set; }
-        float Height { get; set; }
-        float Width { get; set; }
+        //JSONutility.FromJSON does not work with getters and setters... sigh.
         Vector2 Position { get; set; }
         Vector2 PreviousPosition { get; set; }
+        string InGameId { get; set; }
 
         void ChangePosition(Vector2 newPos);
-
+        string GetId();
+        float GetHeight();
+        float GetWidth();
+        string GetSlug();
+        Vector2 GetPosition();
     }
+    
 }

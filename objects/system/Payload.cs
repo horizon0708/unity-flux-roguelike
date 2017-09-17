@@ -5,15 +5,18 @@ namespace MyRogueLike
     public class Payload
     {
         public IBaseObject Instigator;
-        public IMovable Target;
+        public IBaseObject Target;
+        public object ParamOne;
+        public object ParamTwo;
+
         public object Parameters;
 
-        public Payload(IMovable target, object parameters)
+        public Payload(IBaseObject target, object parameters)
         {
             Target = target;
             Parameters = parameters;
         }
-        public Payload(IMovable target)
+        public Payload(IBaseObject target)
         {
             Target = target;
         }

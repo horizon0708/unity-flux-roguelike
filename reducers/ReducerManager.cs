@@ -11,12 +11,14 @@ namespace MyRogueLike.reducers
         // sends them to Logger, to be recorded.
 
         private GameplayReducer _gameplayReducer;
+        private SystemReducer _systemReducer;
         private GeneralManager _gm;
 
         public ReducerManager(GeneralManager gm)
         {
             _gm = gm;
             _gameplayReducer = new GameplayReducer();
+            _systemReducer = new SystemReducer();
         }
 
         public void Dispatch(Action action)
@@ -25,6 +27,7 @@ namespace MyRogueLike.reducers
             {
                 _gameplayReducer.Evaluate(action);
             }
+            _systemReducer.Evaluate(action);
         }
     }
 }

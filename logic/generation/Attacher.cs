@@ -10,24 +10,24 @@ namespace MyRogueLike
             r.isKinematic = true;
 
             var collider = go.AddComponent<BoxCollider2D>();
-            var height = bo.Height;
-            var width = bo.Width;
+            var height = bo.GetHeight();
+            var width = bo.GetWidth();
             collider.size = new Vector2(width, height);
         }
 
         public static void Sprite(GameObject go, IBaseObject bo)
         {
             var sprite = go.AddComponent<SpriteRenderer>();
-            sprite.sprite = Resources.Load<Sprite>("sprites/" +bo.Slug);
-            var height = bo.Height;
-            var width = bo.Width;
+            sprite.sprite = Resources.Load<Sprite>("sprites/" +bo.GetSlug());
+            var height = bo.GetHeight();
+            var width = bo.GetWidth();
             sprite.size = new Vector2(width, height);
         }
 
         public static void Values(GameObject go, IBaseObject bo)
         {
-            go.name = bo.Id;
-            go.transform.position = bo.Position;
+            go.name = bo.InGameId;
+            go.transform.position = bo.GetPosition();
         }
 
         public static void CircleCollider(GameObject go, IBaseObject bo)
@@ -36,8 +36,8 @@ namespace MyRogueLike
             r.isKinematic = true;
 
             var collider = go.AddComponent<CircleCollider2D>();
-            var height = bo.Height;
-            var width = bo.Width;
+            var height = bo.GetHeight();
+            var width = bo.GetWidth();
             collider.radius = height;
         }
     }

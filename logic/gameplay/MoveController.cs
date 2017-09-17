@@ -7,7 +7,7 @@ namespace MyRogueLike
     {
         public static Vector2 Move(IMovable unit, Vector2 direction)
         {
-            var currPos = unit.Position;
+            var currPos = unit.GetPosition();
             var speed = unit.GetSpeed();
             return new Vector2(currPos.x + speed * direction.x * Time.deltaTime
                 , currPos.y + speed * direction.y * Time.deltaTime);
@@ -15,13 +15,13 @@ namespace MyRogueLike
 
         public static Vector2 Move(IMovable unit, Vector2 direction , float speed)
         {
-            var currPos = unit.Position;
-            return new Vector2(currPos.x + speed * direction.x, currPos.y + speed * direction.y);
+            var currPos = unit.GetPosition();
+            return new Vector2(currPos.x + speed * direction.x * Time.deltaTime, currPos.y + speed * direction.y * Time.deltaTime);
         }
 
         public static Vector2 Fall(IMovable unit)
         {
-            var currPos = unit.Position;
+            var currPos = unit.GetPosition();
             var speed = unit.GetYSpeed();
             return new Vector2(currPos.x, currPos.y + speed * Time.deltaTime);
         }
@@ -74,9 +74,9 @@ namespace MyRogueLike
 
         private static bool castRay(IMovable unit, Vector2 direction)
         {
-            var height = unit.Height;
-            var width = unit.Width;
-            var position = unit.Position;
+            var height = unit.GetHeight();
+            var width = unit.GetWidth();
+            var position = unit.GetPosition();
             // Need buffer to make sure that the unit does not get stuck inside another collider2d.
             var buffer = 0.05f+ 0.01f * unit.GetSpeed();
             var rayDistanceX = direction.x * (width / 2 + buffer);
@@ -104,7 +104,7 @@ namespace MyRogueLike
                 foreach (var hit in hits)
                 {
                     if (hit.collider != null
-                        && hit.collider.name != unit.Id)
+                        && hit.collider.name != unit.GetId())
                     {
                         return true;
                     }
@@ -139,7 +139,7 @@ namespace MyRogueLike
         {
             if (IsCollidingBottom(target))
             {
-                return new Vector2(target.Position.x, target.Position.y);
+                return new Vector2(target.GetPosition().x, target.GetPosition().y);
             }
             return Fall(target);
         }

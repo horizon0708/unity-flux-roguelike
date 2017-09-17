@@ -18,11 +18,15 @@ namespace MyRogueLike.utilities
 
         void Update()
         {
-             var player = GeneralManager.CurrentRoom.GetMovableObject("player");
-            HeroSpeed = player.Speed;
-            IsMoving = player.IsMoving;
-            Position = player.Position;
-            PreviousPosition = player.PreviousPosition;
+            var player = GeneralManager.CurrentRoom.GetMovableObject("player");
+            if (player != null)
+            {
+                HeroSpeed = player.GetSpeed();
+                IsMoving = player.IsMoving;
+                Position = player.Position;
+                PreviousPosition = player.PreviousPosition;
+            }
+           
         }
     }
 }

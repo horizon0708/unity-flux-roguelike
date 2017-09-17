@@ -7,7 +7,8 @@ namespace MyRogueLike
 {
     public class Room
     {
-        public List<IMovable> MovableObjects = new List<IMovable>();
+        public List<IMovable> MovableObjects;
+        public List<IBaseObject> AllObjects = new List<IBaseObject>();
         public int Id;
 
         public Room(int id, List<IMovable> units)
@@ -26,19 +27,22 @@ namespace MyRogueLike
 
         public IMovable AddMovable(IMovable movable, Vector2 startingPos)
         {
+            movable.Position = startingPos;
             MovableObjects.Add(movable);
+            AllObjects.Add(movable);
+            
             return movable;
         }
         
 
         public IMovable GetMovableObject(string id)
         {
-            return MovableObjects.Find(x => x.Id == id);
+            return MovableObjects.Find(x => x.GetId() == id);
         }
 
         public List<IMovable> GetMovablesExcept(string id)
         {
-            return MovableObjects.Where(x => x.Id != id).ToList();
+            return MovableObjects.Where(x => x.GetId() != id).ToList();
         }
     }
 }

@@ -17,6 +17,7 @@ namespace MyRogueLike
         public RenderManager RenderManager;
         public RuleManager RuleManager;
         public AssetLoader AssetLoader;
+        public GoManager GoManager;
 
         public List<IUpdater> Updaters;
         public Obstacles Obstacles;
@@ -44,15 +45,20 @@ namespace MyRogueLike
             CurrentLevel = StoreManager.CurrentLevel;
             CurrentRoom = CurrentLevel.getCurrentRoom();
 
+            GoManager = gameObject.AddComponent<GoManager>();
+
 
             Updaters = new List<IUpdater>();
             //I think this could be abstracted away later
             RenderManager = AddUpdater(new RenderManager(this)) as RenderManager;
             RenderManager.AddUpdateRenderer(new Mover(this));
-            RenderManager.AddInitialRenderer(new RoomRenderer(this));
+            //RenderManager.AddInitialRenderer(new RoomRenderer(this));
 
             RuleManager = AddUpdater(new RuleManager(this)) as RuleManager;
+            RuleManager.AddRule(new GoLifecycle());  // this rule must come before any position altering rules like 
+
             //RuleManager.AddRule(new ResetSpeed());
+            RuleManager.AddRule(new PipeMovement());
             RuleManager.AddRule(new Gravity());
 
             InputManager = AddUpdater(new InputManager(this)) as InputManager;          
@@ -75,11 +81,11 @@ namespace MyRogueLike
         {
             //handle inital render
             RenderManager.InitialRender();
-            var pipe = new PipeGenerator(2000f);
-         
+            gameObject.AddComponent<PipeGenerator>();
             //start inspector for debugging
             gameObject.AddComponent<DebugInspector>();
         }
+
 
         void Update()
         {
@@ -87,6 +93,7 @@ namespace MyRogueLike
             {
                 updater.ManageUpdate();
             }
+         
         }
 
         private static GeneralManager _instance;

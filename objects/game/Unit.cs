@@ -6,9 +6,9 @@ namespace MyRogueLike
     [System.Serializable]
     public class Unit: IMovable
     {
-        public string Id { get; set; }
+        public string Id;
         public string InGameId { get; set; }
-        public string Slug { get; set; }
+        public string Slug;
         public Vector2 Position { get; set; }
         public Vector2 PreviousPosition { get; set; }
  
@@ -16,19 +16,18 @@ namespace MyRogueLike
         public bool IsFalling { get; set; }
         public bool IsJumping { get; set; }
 
-        public float Speed { get; set; }
-        public float XSpeed { get; set; }
-        public float YSpeed { get; set; }
-        public float Acceleration { get; set; }
-        public float XAcceleration { get; set; }
-        public float YAcceleration { get; set; }
-        public float MaxSpeed { get; set; }
+        public float Speed;
+        public float XSpeed;
+        public float Acceleration;
+        public float XAcceleration;
+        public float YAcceleration;
+        public float MaxSpeed;
 
         public List<string> Debuffs;
         public List<string> Buffs;
-        public bool CanCollide { get; set; }
-        public float Height { get; set; }
-        public float Width { get; set; }
+        public bool CanCollide;
+        public float Height;
+        public float Width;
 
         public Unit(string id, Vector2 position)
         {
@@ -40,6 +39,7 @@ namespace MyRogueLike
         {
             var _gm = GeneralManager.Instance;
             var original = _gm.Units.FindWithId(id);
+            Id = original.Id;
             InGameId = original.Id == "player" ? original.Id : IdGenerator.GenerateId();
             Slug = original.Slug;
             IsMoving = false;
@@ -54,6 +54,9 @@ namespace MyRogueLike
             MaxSpeed = original.MaxSpeed;
             Height = original.Height;
             Width = original.Width;
+
+            Position = new Vector2(-999, 0);
+            PreviousPosition = new Vector2(-999, 0);
         }
 
 
@@ -62,6 +65,33 @@ namespace MyRogueLike
             PreviousPosition = Position;
             Position = newPos;
         }
+
+        public string GetId()
+        {
+            return Id;
+        }
+
+        public string GetSlug()
+        {
+            return Slug;
+        }
+
+        public float GetHeight()
+        {
+            return Height;
+        }
+
+        public float GetWidth()
+        {
+            return Width;
+        }
+
+        public Vector2 GetPosition()
+        {
+            return Position;
+        }
+
+        public float YSpeed { get; set; }
 
         public float GetSpeed()
         {
@@ -82,6 +112,11 @@ namespace MyRogueLike
             if (YSpeed > glob.TerminalVelocity) YSpeed -= glob.Gravity;
             
             return YSpeed;
+        }
+
+        public void SetYSpeed(float speed)
+        {
+            YSpeed = Speed;
         }
     }
 }
