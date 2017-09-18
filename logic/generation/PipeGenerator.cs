@@ -43,16 +43,17 @@ namespace MyRogueLike
         {
             while (true)
             {
-                CreatePipes();
                 
                 yield return new WaitForSeconds(3);
+                CreatePipes();
+
             }
         }
 
         public void CreatePipes()
         {
-            var pipeOne = new Obstacle("pipe");
-            var pipeTwo = new Obstacle("pipe");
+            var pipeOne = new Projectile("pipe", Vector2.left);
+            var pipeTwo = new Projectile("pipe", Vector2.left);
             var topPipeY = _topOfScreen + _gap / 2 + _offset;
             var bottomPipeY = _bottomOfScreen - _gap / 2 + _offset;
             room.AddMovable(pipeOne, new Vector2(_rightOfScreen, topPipeY));

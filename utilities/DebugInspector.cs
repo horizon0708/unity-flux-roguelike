@@ -7,6 +7,7 @@ namespace MyRogueLike.utilities
         public float HeroSpeed;
         public float HeroMaxSpeed;
         public bool IsMoving;
+        public int Hp;
         public Vector2 PreviousPosition;
         public Vector2 Position;
         public GeneralManager GeneralManager;
@@ -25,6 +26,8 @@ namespace MyRogueLike.utilities
                 IsMoving = player.IsMoving;
                 Position = player.Position;
                 PreviousPosition = player.PreviousPosition;
+                var dam = player as IDamagable;
+                Hp = dam.GetHp();
             }
            
         }

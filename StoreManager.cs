@@ -12,7 +12,6 @@ namespace MyRogueLike
         public GlobalStore GlobalStore { get; }
         public Level CurrentLevel { get; }
         public Room CurrentRoom { get; }
-        public Terrains Terrains { get; }
 
         public StoreManager()
         {

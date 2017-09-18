@@ -43,6 +43,11 @@ namespace MyRogueLike
             throw new System.NotImplementedException();
         }
 
+        public bool IsRound()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Vector2 GetPosition()
         {
             throw new System.NotImplementedException();

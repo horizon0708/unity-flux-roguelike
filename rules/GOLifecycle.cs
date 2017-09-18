@@ -17,7 +17,6 @@ namespace Assets.scripts.rules
                 if (anObj.PreviousPosition.x < -100 && anObj.Position.x > -900f)
                 {
                     _gm.ReducerManager.Dispatch(new Action("GO_CREATE", new Payload(anObj)));
-                    Debug.Log("create");
                 }
                 if (anObj.PreviousPosition.x > -900 && anObj.Position.x  < - 900)
                 {

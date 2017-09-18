@@ -16,13 +16,9 @@ namespace MyRogueLike
         public ReducerManager ReducerManager;
         public RenderManager RenderManager;
         public RuleManager RuleManager;
-        public AssetLoader AssetLoader;
         public GoManager GoManager;
 
         public List<IUpdater> Updaters;
-        public Obstacles Obstacles;
-        public Terrains Terrains;
-        public Units Units;
 
         public CameraManager CameraManager { get; private set; }
 
@@ -36,11 +32,6 @@ namespace MyRogueLike
         void Awake()
         {
             // load asssets;
-            AssetLoader = new AssetLoader();
-            Obstacles = AssetLoader.Obstacles;
-            Terrains = AssetLoader.Terrains;
-            Units = AssetLoader.Units;
-
             CameraManager = new CameraManager();
             StoreManager = new StoreManager();
             ReducerManager = new ReducerManager(this);

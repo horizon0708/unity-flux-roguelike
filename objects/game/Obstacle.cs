@@ -3,7 +3,7 @@
 namespace MyRogueLike
 {
     [System.Serializable]
-    public class Obstacle: IMovable
+    public class Obstacle: IMovable, ISpiky
     {
         public string Id ;
         public string InGameId { get; set; }
@@ -20,6 +20,7 @@ namespace MyRogueLike
         public float Height ;
         public float Width ;
         public bool CanCollide ;
+        public int Damage;
 
         public float GetYSpeed()
         {
@@ -38,7 +39,8 @@ namespace MyRogueLike
         public Obstacle(string id)
         {
             var _gm = GeneralManager.Instance;
-            var original = _gm.Obstacles.FindWithId(id);
+            //var original = _gm.Obstacles.FindWithId(id);
+            var original = Library.Obstacles.Find(x => x.Id == id);
             InGameId = original.Id == "player" ? original.Id : IdGenerator.GenerateId();
             Slug = original.Slug;
             IsMoving = false;
@@ -57,7 +59,7 @@ namespace MyRogueLike
             MaxSpeed = original.MaxSpeed;
             Height = original.Height;
             Width = original.Width;
-
+            Damage = original.Damage;
 
         }
 
@@ -89,6 +91,11 @@ namespace MyRogueLike
             return Slug;
         }
 
+        public bool IsRound()
+        {
+            return false;
+        }
+
         public string GetId()
         {
             return InGameId;
@@ -107,6 +114,11 @@ namespace MyRogueLike
         public Vector2 GetPosition()
         {
             return Position;
+        }
+
+        public int GetDamage()
+        {
+            return Damage;
         }
 
         public Obstacle(string id, Vector2 pos)

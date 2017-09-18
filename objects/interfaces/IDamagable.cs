@@ -1,9 +1,8 @@
 ﻿namespace MyRogueLike
 {
-    public interface IDamagable
+    public interface IDamagable : IBaseObject
     {
-        int Hp { get; set; }
-
-        void TakeDamage();
+        void TakeDamage(int damage);
+        int GetHp();
     }
 }

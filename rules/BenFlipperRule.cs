@@ -1,4 +1,5 @@
-﻿using UnityEditor.Rendering;
+﻿using System.Diagnostics;
+using UnityEditor.Rendering;
 
 namespace MyRogueLike
 {
@@ -29,31 +30,55 @@ namespace MyRogueLike
 
         public void GameUpdate()
         {
-            MovePlatforms();
+            MoveProjectiles();
             KillPlayerOnScreenLeave();
             DestroyPlatformsOnScreenLeave();
+            KillPlayerOnZeroHp();
         }
 
-        void MovePlatforms()
+        void MoveProjectiles()
         {
             var movables = room.GetMovablesExcept("player");
 
             foreach (var mov in movables)
             {
-                _gm.ReducerManager.Dispatch(new Action("PLATFORM_MOVE", new Payload(mov)));
+                if (mov is IProjectile)
+                {
+                _gm.ReducerManager.Dispatch(new Action("MOVE_PROJECTILE", new Payload(mov)));
+
+                }
             }
         }
 
         void KillPlayerOnScreenLeave()
         {
             var player = room.GetMovableObject("player");
-            if (player.Position.y > _topOfScreen + _offscreenMargin 
-                || player.Position.y < _bottomOfScreen - _offscreenMargin
-                || player.Position.x < _leftOfScreen - _offscreenMargin
-                || player.Position.x > _rightOfScreen + _offscreenMargin)
+            if (player != null)
             {
-                _gm.ReducerManager.Dispatch(new Action("KILL_PLAYER", new Payload(player)));
+                if (player.Position.y > _topOfScreen + _offscreenMargin
+                    || player.Position.y < _bottomOfScreen - _offscreenMargin
+                    || player.Position.x < _leftOfScreen - _offscreenMargin
+                    || player.Position.x > _rightOfScreen + _offscreenMargin)
+                {
+                    _gm.ReducerManager.Dispatch(new Action("GO_DESTROY", new Payload(player)));
+                }
             }
+            
+        }
+
+        void KillPlayerOnZeroHp()
+        {
+            var player = room.GetMovableObject("player") as IDamagable;
+            if (player != null)
+            {
+                if (player.GetHp() < 1)
+                {
+                    _gm.ReducerManager.Dispatch(new Action("GO_DESTROY", new Payload(player)));
+                    UnityEngine.Debug.Log("killed");
+                }
+            }
+
+           
         }
 
         void DestroyPlatformsOnScreenLeave()
@@ -67,5 +92,7 @@ namespace MyRogueLike
                 }
             }
         }
+
+
     }
 }

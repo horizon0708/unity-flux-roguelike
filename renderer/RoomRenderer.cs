@@ -33,7 +33,7 @@ namespace MyRogueLike
             //}
             foreach (IMovable obs in room.MovableObjects)
             {
-                MovableCreator.CreateMovable(new GameObject(), obs);
+                GoCreator.CreateMovable(new GameObject(), obs);
             }
         }
 

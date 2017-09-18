@@ -21,5 +21,11 @@ namespace MyRogueLike
             Target = target;
         }
 
+        public Payload(IBaseObject target, IBaseObject instigator)
+        {
+            Target = target;
+            Instigator = instigator;
+        }
+
     }
 }

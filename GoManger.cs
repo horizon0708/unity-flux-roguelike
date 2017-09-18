@@ -6,7 +6,7 @@ namespace MyRogueLike
     {
         public void CreateMovable(IMovable target)
         {
-            MovableCreator.CreateMovable(new GameObject(), target);
+            GoCreator.CreateMovable(new GameObject(), target);
         }
 
         public void DestroyMovable(IMovable target)

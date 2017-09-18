@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MyRogueLike.components;
+using UnityEngine;
 
 namespace MyRogueLike
 {
@@ -6,13 +7,28 @@ namespace MyRogueLike
     {
         public static void Collider(GameObject go, IBaseObject bo)
         {
-            var r = go.AddComponent<Rigidbody2D>();
-            r.isKinematic = true;
+            if (bo.IsRound())
+            {
+                CircleCollider(go, bo);
+            }
+            else
+            {
+                var r = go.AddComponent<Rigidbody2D>();
+                r.isKinematic = true;
 
-            var collider = go.AddComponent<BoxCollider2D>();
-            var height = bo.GetHeight();
-            var width = bo.GetWidth();
-            collider.size = new Vector2(width, height);
+                var collider = go.AddComponent<BoxCollider2D>();
+                var height = bo.GetHeight();
+                var width = bo.GetWidth();
+                collider.size = new Vector2(width, height);
+                collider.isTrigger = true;
+            }
+
+           
+        }
+
+        public static void OnCollision(GameObject go)
+        {
+            go.AddComponent<OnCollision>();
         }
 
         public static void Sprite(GameObject go, IBaseObject bo)
@@ -37,8 +53,8 @@ namespace MyRogueLike
 
             var collider = go.AddComponent<CircleCollider2D>();
             var height = bo.GetHeight();
-            var width = bo.GetWidth();
             collider.radius = height;
+            collider.isTrigger = true;
         }
     }
 }

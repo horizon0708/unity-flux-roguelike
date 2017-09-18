@@ -14,6 +14,7 @@ namespace MyRogueLike
         float GetHeight();
         float GetWidth();
         string GetSlug();
+        bool IsRound();
         Vector2 GetPosition();
     }
     

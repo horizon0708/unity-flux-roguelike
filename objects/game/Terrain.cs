@@ -17,7 +17,7 @@ namespace MyRogueLike
         public Terrain(string id)
         {
             var _gm = GeneralManager.Instance;
-            var original = _gm.Terrains.FindWithId(id);
+            var original = Library.Terrains.Find(x => x.Id == id);
             InGameId = original.Id == "player" ? original.Id : IdGenerator.GenerateId();
             Slug = original.Slug;
             Height = original.Height;
@@ -53,6 +53,11 @@ namespace MyRogueLike
         public string GetSlug()
         {
             return Slug;
+        }
+
+        public bool IsRound()
+        {
+            return false;
         }
 
         public Vector2 GetPosition()

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace MyRogueLike
 {
     [System.Serializable]
-    public class Unit: IMovable
+    public class Unit: IMovable, IDamagable
     {
         public string Id;
         public string InGameId { get; set; }
@@ -37,8 +37,7 @@ namespace MyRogueLike
 
         public Unit(string id)
         {
-            var _gm = GeneralManager.Instance;
-            var original = _gm.Units.FindWithId(id);
+            var original = Library.Units.Find(x => x.Id == id);
             Id = original.Id;
             InGameId = original.Id == "player" ? original.Id : IdGenerator.GenerateId();
             Slug = original.Slug;
@@ -54,6 +53,8 @@ namespace MyRogueLike
             MaxSpeed = original.MaxSpeed;
             Height = original.Height;
             Width = original.Width;
+            Hp = original.MaxHp;
+            MaxHp = original.MaxHp;
 
             Position = new Vector2(-999, 0);
             PreviousPosition = new Vector2(-999, 0);
@@ -74,6 +75,11 @@ namespace MyRogueLike
         public string GetSlug()
         {
             return Slug;
+        }
+
+        public bool IsRound()
+        {
+            return true;
         }
 
         public float GetHeight()
@@ -117,6 +123,21 @@ namespace MyRogueLike
         public void SetYSpeed(float speed)
         {
             YSpeed = Speed;
+        }
+
+        public int Hp { get; set; }
+        public int PreviousHp { get; set; }
+        public int MaxHp;
+
+        public void TakeDamage(int damage)
+        {
+            PreviousHp = Hp;
+            Hp -= damage;
+        }
+
+        public int GetHp()
+        {
+            return Hp;
         }
     }
 }
