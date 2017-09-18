@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
-using UnityEditor.Rendering;
+using UnityEditor;
+using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace MyRogueLike
 {
@@ -34,6 +36,7 @@ namespace MyRogueLike
             KillPlayerOnScreenLeave();
             DestroyPlatformsOnScreenLeave();
             KillPlayerOnZeroHp();
+            AgeUp();
         }
 
         void MoveProjectiles()
@@ -74,11 +77,8 @@ namespace MyRogueLike
                 if (player.GetHp() < 1)
                 {
                     _gm.ReducerManager.Dispatch(new Action("GO_DESTROY", new Payload(player)));
-                    UnityEngine.Debug.Log("killed");
                 }
-            }
-
-           
+            }          
         }
 
         void DestroyPlatformsOnScreenLeave()
@@ -93,6 +93,21 @@ namespace MyRogueLike
             }
         }
 
+        void AgeUp()
+        {
+            var movables = room.GetMovablesExcept("player");
+            foreach (var mov in movables)
+            {
+                if (mov.GetId() == "pipe" 
+                    && mov.PreviousPosition.x > 0 
+                    && mov.Position.x < 0 
+                    && mov.Position.y > 0)
+                {
+                    UnityEngine.Debug.Log("age up ");
+                    _gm.GlobalStore.CurrentAge++;
+                }
+            }
+        }
 
     }
 }

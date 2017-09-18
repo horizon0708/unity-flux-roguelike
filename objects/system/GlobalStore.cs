@@ -9,6 +9,7 @@ namespace MyRogueLike
         public List<Level> Levels;
         public static int CurrentLevelId = 1;
         public static int CurrentRoomId = 0;
+        public int CurrentAge = 0;
         public Level CurrentLevel;
         public Room CurrentRoom;
         public enum SystemState
@@ -26,6 +27,7 @@ namespace MyRogueLike
             Levels = new List<Level>();
             CurrentRoomId = 1;
             CurrentRoomId = 0;
+            CurrentAge = 0;
             GlobalParameters = new GlobalParameters(); 
 
         }

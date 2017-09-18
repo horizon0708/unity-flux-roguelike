@@ -4,17 +4,13 @@ namespace MyRogueLike
 {
     public class GoManager : MonoBehaviour
     {
-        public void CreateMovable(IMovable target)
-        {
-            GoCreator.CreateMovable(new GameObject(), target);
-        }
-
         public void DestroyMovable(IMovable target)
         {
             var go = GameObject.Find(target.InGameId);
             if (go != null)
             {
                 Destroy(go);
+                Debug.Log(GeneralManager.Instance.CurrentRoom.MovableObjects.Count);
                 GeneralManager.Instance.CurrentRoom.RemoveMovable(target.InGameId);
             }
             else

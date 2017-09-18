@@ -1,4 +1,6 @@
-﻿namespace MyRogueLike.reducers
+﻿using UnityEngine;
+
+namespace MyRogueLike.reducers
 {
     public class SystemReducer
     {
@@ -13,7 +15,7 @@
                 case "GO_CREATE":
                 {
                     var target = payload.Target as IMovable;
-                    _gm.GoManager.CreateMovable(target);
+                    GoCreator.Create(new GameObject(), target);
                     break;
                 }
 

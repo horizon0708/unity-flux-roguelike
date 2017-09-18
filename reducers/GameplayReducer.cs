@@ -25,8 +25,17 @@ namespace MyRogueLike
                 case "MOVE_PROJECTILE":
                 {
                     var target = action.Payload.Target as IMovable;
-                    var proj = target as IProjectile;
-                    var direction = proj.Direction;
+                    Vector2 direction;
+                    if (target is IProjectile)
+                    {
+                        var proj = target as IProjectile;
+                        direction = proj.Direction;
+                    }
+                    else
+                    {
+                        direction = Vector2.zero;
+                    }
+                        
                     target?.ChangePosition(MoveController.Move(target, direction));
                     break;
                 }
@@ -47,7 +56,7 @@ namespace MyRogueLike
 
                     //target.SetYSpeed(100f);
                     //
-                    target.YSpeed = 15f;
+                    target.YSpeed = 20f;
                     break;
                 }
 

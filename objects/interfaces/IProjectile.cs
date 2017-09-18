@@ -2,7 +2,7 @@
 
 namespace MyRogueLike
 {
-    public interface IProjectile : IMovable, ISpiky
+    public interface IProjectile : IMovable
     {
         Vector2 Direction { get; set; }
         Vector2 PreviousDirection { get; set; }

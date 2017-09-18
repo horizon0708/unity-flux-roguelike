@@ -13,12 +13,11 @@ namespace Assets.scripts.rules
             var allObj = room.MovableObjects;
             foreach (var anObj in allObj)
             {
-
                 if (anObj.PreviousPosition.x < -100 && anObj.Position.x > -900f)
                 {
                     _gm.ReducerManager.Dispatch(new Action("GO_CREATE", new Payload(anObj)));
                 }
-                if (anObj.PreviousPosition.x > -900 && anObj.Position.x  < - 900)
+                if (anObj.PreviousPosition.x > -900 && anObj.Position.x < -900)
                 {
                     _gm.ReducerManager.Dispatch(new Action("GO_DESTROY", new Payload(anObj)));
                 }

@@ -3,7 +3,7 @@
 namespace MyRogueLike
 {
     [System.Serializable]
-    public class Projectile : IProjectile
+    public class BaseProjectile : IProjectile
     {
         // Serialized fields
         public string Id;
@@ -60,7 +60,7 @@ namespace MyRogueLike
 
         public bool IsRound()
         {
-            return IsRound();
+            return Round;
         }
 
         public Vector2 GetPosition()
@@ -72,7 +72,6 @@ namespace MyRogueLike
         {
             return Damage;
         }
-
 
         public float GetSpeed()
         {
@@ -106,7 +105,7 @@ namespace MyRogueLike
             Direction = newDir;
         }
 
-        public Projectile(string id, Vector2 direction)
+        public BaseProjectile(string id, Vector2 direction)
         {
             var original = Library.Projectiles.Find(x => x.Id == id);
 
@@ -120,6 +119,7 @@ namespace MyRogueLike
             Position = new Vector2(-999, 0);
             PreviousPosition = new Vector2(-999, 0);
 
+            Id = original.Id;
             Round = original.Round;
             Slug = original.Slug;
             XSpeed = original.XSpeed;
